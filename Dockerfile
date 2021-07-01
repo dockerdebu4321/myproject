@@ -1,2 +1,2 @@
 FROM tomcat
-COPY endtoend.war /usr/local/tomcat/webapps/
+COPY ./target/endtoend.war /usr/local/tomcat/webapps/
