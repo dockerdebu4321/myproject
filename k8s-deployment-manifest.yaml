@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-endtoend-app
+  name: tomcat-deployment
   labels:
-    app: my-app
+    app: tomcat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: tomcat
   template:
     metadata:
       labels:
-        app: my-app
+        app: tomcat
     spec:
       containers:
-      - name: my-container
-        image: dockerdebu4321/endtoend
+      - name: tomcat
+        image: <REGISTRY>/<IMAGE>:<TAG>
         ports:
-        - containerPort: 8085
+        - containerPort: 8080
