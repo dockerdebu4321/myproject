@@ -1,0 +1,147 @@
+*************************************************************************************
+https://www.middlewareinventory.com/blog/docker-tomcat-example-dockerfile-sample/
+
+curl -O https://raw.githubusercontent.com/DebashisMishra/endtoend/main/Dockerfile
+docker build -t dockerdebu4321/tomcat8 .
+docker login
+docker push dockerdebu4321/tomcat8
+docker pull dockerdebu4321/tomcat8:latest
+docker rm --force 43deae90af50
+docker container run -it -d --name tomcatcontainer2 -p 8081:8080 dockerdebu4321/tomcat8
+docker logs -f 7d31080df567
+RUN curl -O -L https://github.com/dockerdebu4321/myproject/raw/master/endtoend.war
+*************************************************************************************
+https://www.youtube.com/watch?v=lOd-0_DpYG8&list=PLMPZQTftRCS8Pp4wiiUruly5ODScvAwcQ&index=17
+GCP details :
+Do in each VM
+passphrase for key :  debu
+go to root  sudo su –
+
+install kubernet cluster
+***********************
+
+
+systemctl stop firewalld                                                                                                                                  
+systemctl disable firewalld                                                                                                                               
+swapoff -a
+sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
+setenforce 0                                                                                                                                      
+sed -i 's/enforcing/disabled/g' /etc/selinux/config
+
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes 
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64 
+enabled=1 
+gpgcheck=1 
+repo_gpgcheck=1 
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg 
+exclude=kube*
+EOF
+
+
+yum update -y
+yum install -y docker kubeadm kubelet kubectl  --disableexcludes=kubernetes 
+
+systemctl enable docker && systemctl start docker
+systemctl enable kubelet && systemctl start kubelet
+
+
+cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+sysctl  net.bridge.bridge-nf-call-ip6tables = 1
+sysctl  net.ipv4.ipv4_forward=1
+sysctl --system
+echo "1" > /proc/sys/net/ipv4/ip_forward
+
+systemctl daemon-reload
+systemctl restart kubelet
+
+
+kubeadm init --pod-network-cidr=10.244.0.0/16
+
+for kubctl working 
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+kubectl get pods --all-namespaces
+in worker nodes
+kubeadm join 10.142.0.2:6443 --token nauwne.4kdpmt704sw8vt2d \
+        --discovery-token-ca-cert-hash sha256:deba9af278ead680677cb42ac6c80d532f2ed37e08654526d157a67471d8039b
+
+kubectl get pods --all-namespaces
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/controllers/nginx-deployment.yaml
+
+kubectl get pods -o wide
+kubectl get deploy
+kubectl get rs
+kubctl describe deploy tomcat-deployment
+kubectl logs tomcat-deployment-75bdfc9fb5-zsxsv  --tail=10  >>>>>>> to see  logs 
+kubectl exec --stdin --tty test-ed -- /bin/bash
+
+
+service.yaml
+
+kubeadm reset 
+sudo yum remove kubeadm kubectl kubelet kubernetes-cni kube*
+sudo yum autoremove
+sudo rm -rf ~/.kube
+
+******************************************************************************************************************************************
+https://www.youtube.com/watch?v=IluhOk86prA
+sudo apt-get update
+sudo apt install openjdk-8-jdk
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+systemctl status jenkins
+http://34.75.156.0:8080/
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+curl -fsSL get.docker.com | /bin/bash
+sudo usermod -aG docker jenkins
+sudo usermod -aG docker $USER
+sudo systemctl restart jenkins
+(better you can fallow below steps)*********
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+sudo -i -u jenkins
+cd ~
+mkdir .kube
+vi .kube/config
+******************for configuring kubeinstall in remote server******************
+curl -LO https://dl.k8s.io/release/v1.21.2/bin/linux/amd64/kubectl
+curl -LO https://dl.k8s.io/v1.21.2/bin/linux/amd64/kubectl.sha256
+echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+mkdir -p ~/.kube/
+"/home/debashismishra1995/config"
+cp config ~/.kube/config
+kubectl --insecure-skip-tls-verify get all -o wide
+kubectl --insecure-skip-tls-verify get pods -o wide
+for giviing acces to a jenkins user 
+under jenkins hoe directoty 
+run below commands 
+mkdir -p ~/.kube/
+vi config
+coppy entire content
+thrn run below command
+kubectl get nodes --insecure-skip-tls-verify=true
+
+
+
+
+
