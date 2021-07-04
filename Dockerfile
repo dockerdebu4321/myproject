@@ -8,6 +8,6 @@ RUN yum -y install java
 RUN java -version
 WORKDIR /opt/tomcat/webapps
 COPY ./target/endtoend.war .
-EXPOSE 8080
+EXPOSE 8085
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 
