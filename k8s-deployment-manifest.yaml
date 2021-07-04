@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: tomcat
-        image: <REGISTRY>/<IMAGE>:<TAG>
+        image: dockerdebu4321/endtoend
         ports:
         - containerPort: 8080
