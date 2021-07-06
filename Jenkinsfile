@@ -9,7 +9,7 @@ node{
         sh "${mavenCmd} clean package"
     }
     stage('Docker Build'){
-        sh "docker rmi -f dockerdebu4321/endtoend
+        sh "docker rmi -f dockerdebu4321/endtoend"
         sh "docker build --no-cache -t dockerdebu4321/endtoend ."
     }
     stage('Docker Push'){
