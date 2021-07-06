@@ -1,8 +1,8 @@
 
 node{
-    stage('Git Clone'){
-        git credentialsId: 'Github_Credential', branch: 'patch1', url: 'https://github.com/dockerdebu4321/myproject.git'
-    }
+  //  stage('Git Clone'){
+  //      git credentialsId: 'Github_Credential', branch: 'patch1', url: 'https://github.com/dockerdebu4321/myproject.git'
+  //  }
     stage('Maven Build'){
         def MavenHome = tool name: "Maven-3.8.1" , type: "maven"
         def mavenCmd = "${MavenHome}/bin/mvn "
