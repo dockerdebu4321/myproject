@@ -1,3 +1,4 @@
+
 node{
     stage('Git Clone'){
         git credentialsId: 'Github_Credential', branch: 'patch1', url: 'https://github.com/dockerdebu4321/myproject.git'
