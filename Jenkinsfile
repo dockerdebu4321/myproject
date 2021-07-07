@@ -1,13 +1,10 @@
 
 node{
-    environment{
-	    	ENV_CHOICE = "${selectedenv}"
-	}
     stage('Git Clone'){
          git credentialsId: 'Github_Credential', branch: '${branch}', url: 'https://github.com/dockerdebu4321/myproject.git'
     }
     stage('Env Selection'){
-		switch (ENV_CHOICE) {
+		switch (${selectedenv}) {
 	    case 'DEV1':
 	      echo("Dev1 selected")
 	      env.SPRING_PROFILES_ACTIVE="dev1"
