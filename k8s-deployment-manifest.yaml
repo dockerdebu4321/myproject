@@ -19,3 +19,7 @@ spec:
         image: dockerdebu4321/endtoend
         ports:
         - containerPort: 8080
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: ${SPRING_PROFILES_ACTIVE}
+        
