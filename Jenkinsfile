@@ -2,7 +2,7 @@
 node{
 
     stage('Git Clone'){
-        git credentialsId: 'Github_Credential', branch: ${branch}, url: 'https://github.com/dockerdebu4321/myproject.git'
+        git credentialsId: 'Github_Credential', branch: '${branch}', url: 'https://github.com/dockerdebu4321/myproject.git'
     }
     
     stage('Maven Build'){
