@@ -17,11 +17,22 @@ node {
                 break
         }
         echo "${env.SPRING_PROFILES_ACTIVE} environment selected.."
+    }
+    stage('Test Selection') {
+        switch (params.selectedTest) {
+            case 'with_test':
+                env.MVN_TEST_COMMAND="clean package"
+                break
+            case 'with_out_test':
+                 env.MVN_TEST_COMMAND="clean package -DskipTests"
+                break
+        }
+        echo "${env.SPRING_PROFILES_ACTIVE} environment selected.."
     }    
     stage('Maven Build'){
         def MavenHome = tool name: "Maven-3.8.1" , type: "maven"
         def mavenCmd = "${MavenHome}/bin/mvn "
-        sh "${mavenCmd} clean package"
+        sh "${mavenCmd} ${env.MVN_TEST_COMMAND}"
     }
     stage('Docker Build'){
         sh "docker rmi -f dockerdebu4321/endtoend"
