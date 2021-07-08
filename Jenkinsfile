@@ -1,10 +1,9 @@
-
 node {
     stage('Git Clone'){
         sh "echo ${branch}"
         git credentialsId: 'Github_Credential', branch: "${branch}", url: 'https://github.com/dockerdebu4321/myproject.git'
     }
-    stage('Env Selection') {
+    stage('Env Selection'){
         switch (params.selectedenv) {
             case 'dev1':
                 env.SPRING_PROFILES_ACTIVE="dev1"
@@ -17,11 +16,21 @@ node {
                 break
         }
         echo "${env.SPRING_PROFILES_ACTIVE} environment selected.."
+    }
+    stage('Test Selection'){
+        switch (params.selectedTest) {
+            case 'with_test':
+                env.MVN_TEST_COMMAND="clean package"
+                break
+            case 'with_out_test':
+                 env.MVN_TEST_COMMAND="clean package -DskipTests"
+                break
+        }
     }    
     stage('Maven Build'){
         def MavenHome = tool name: "Maven-3.8.1" , type: "maven"
         def mavenCmd = "${MavenHome}/bin/mvn "
-        sh "${mavenCmd} clean package"
+        sh "${mavenCmd} ${env.MVN_TEST_COMMAND}"
     }
     stage('Docker Build'){
         sh "docker rmi -f dockerdebu4321/endtoend"
