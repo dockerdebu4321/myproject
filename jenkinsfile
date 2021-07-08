@@ -27,7 +27,6 @@ node {
                  env.MVN_TEST_COMMAND="clean package -DskipTests"
                 break
         }
-        echo "${env.SPRING_PROFILES_ACTIVE} environment selected.."
     }    
     stage('Maven Build'){
         def MavenHome = tool name: "Maven-3.8.1" , type: "maven"
