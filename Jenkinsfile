@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        choice(name: 'branch', choices: ['master', 'patch1'], description: 'Select Your Environment')
+        choice(name: 'branch', choices: ['master', 'patch1'], description: 'Select Your Branch')
         choice(name: 'environment', choices: ['dev1', 'test1', 'prod'], description: 'Select Your Environment')
         booleanParam(name: 'executeTests', defaultValue: true, description: 'Do you want to execute test-cases')
     }
