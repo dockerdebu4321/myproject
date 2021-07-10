@@ -97,8 +97,8 @@ pipeline {
                  echo "*********** Deployed Application in ${SELECTED_ENVIRONMENT} Successfully.. ***********"
                }
            }      
+     }
    }
-}
 }
 /*
 
