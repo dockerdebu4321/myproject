@@ -96,10 +96,8 @@ pipeline {
                 sh "kubectl --insecure-skip-tls-verify apply -f deployment.yaml"
                  echo "*********** Deployed Application in ${SELECTED_ENVIRONMENT} Successfully.. ***********"
                }
-           }
-          
+           }      
    }
-
 }
 }
 /*
